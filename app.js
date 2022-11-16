@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
+const ejsMate = require('ejs-mate');
 const methodOverride = require('method-override');
 const Campground = require('./models/campground');
 
@@ -18,22 +19,23 @@ db.once("open", () => {
 
 const app = express();
 
+app.engine('ejs', ejsMate)
 app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'views'))
 
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 
+
 app.get('/', (req, res) => {
-    res.render('home');
-})
+    res.render('home')
+});
 
 app.get('/campgrounds', async (req, res) => {
     const campgrounds = await Campground.find({});
     res.render('campgrounds/index', { campgrounds })
 });
 
-// /new and /:id sequence is important
 app.get('/campgrounds/new', (req, res) => {
     res.render('campgrounds/new');
 })
@@ -67,5 +69,5 @@ app.delete('/campgrounds/:id', async (req, res) => {
 })
 
 app.listen(3000, () => {
-    console.log('serving on port 3000')
+    console.log('Serving on port 3000')
 })
