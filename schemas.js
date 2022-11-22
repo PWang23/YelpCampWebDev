@@ -1,4 +1,4 @@
-const BaseJoi = require('joi');
+const BaseJoi = require('joi'); //https://joi.dev/api/?v=17.7.0
 const sanitizeHtml = require('sanitize-html');
 
 const extension = (joi) => ({

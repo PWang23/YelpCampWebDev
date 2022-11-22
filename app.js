@@ -6,7 +6,7 @@ if (process.env.NODE_ENV !== "production") {
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
-const ejsMate = require('ejs-mate');
+const ejsMate = require('ejs-mate'); //https://github.com/JacksonTian/ejs-mate
 const session = require('express-session');
 const flash = require('connect-flash');
 const ExpressError = require('./utils/ExpressError');
@@ -118,6 +118,7 @@ app.use(
                 "data:",
                 "https://res.cloudinary.com/dllcbfysl/", //SHOULD MATCH YOUR CLOUDINARY ACCOUNT! 
                 "https://placeimg.com/640/480/nature",
+                "https://images.unsplash.com/photo-1559521783-1d1599583485?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80",
             ],
             fontSrc: ["'self'", ...fontSrcUrls],
         },
@@ -160,7 +161,7 @@ app.use((err, req, res, next) => {
     res.status(statusCode).render('error', { err })
 })
 
-app.listen(3000, () => {
-    console.log('Serving on port 3000')
+const port = process.env.PORT || 4000;
+app.listen(port, () => {
+    console.log(`Serving on port ${port}`)
 })
-
